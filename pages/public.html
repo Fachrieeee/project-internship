@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lokasi Praktisi | Digitaliz</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="bg-slate-50 text-slate-900 antialiased">
+
+  <!-- Navbar -->
+  <header class="sticky top-0 z-40 border-b border-slate-200/80 bg-white/90 backdrop-blur">
+    <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
+      <a href="#" class="flex items-center gap-3">
+        <div class="grid h-10 w-10 place-items-center rounded-xl bg-indigo-600 text-sm font-bold text-white shadow-sm">
+          D
+        </div>
+        <div>
+          <p class="text-sm font-bold tracking-tight text-slate-950">Digitaliz</p>
+          <p class="text-xs text-slate-500">Hasnur Centre</p>
+        </div>
+      </a>
+
+      <nav class="hidden items-center gap-7 text-sm font-medium text-slate-600 md:flex">
+        <a href="#beranda" class="transition hover:text-indigo-600">Beranda</a>
+        <a href="#praktisi" class="transition hover:text-indigo-600">Lokasi Praktisi</a>
+        <a href="#informasi" class="transition hover:text-indigo-600">Informasi</a>
+      </nav>
+
+      <a href="#praktisi"
+        class="rounded-xl bg-slate-950 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800">
+        Cari Praktisi
+      </a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- Hero -->
+    <section id="beranda" class="relative overflow-hidden bg-white">
+      <div class="absolute inset-x-0 top-0 -z-10 h-72 bg-gradient-to-b from-indigo-50 to-transparent"></div>
+
+      <div class="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-24">
+        <div class="max-w-3xl">
+          <div
+            class="mb-5 inline-flex items-center gap-2 rounded-full border border-indigo-100 bg-indigo-50 px-3 py-1.5 text-xs font-semibold text-indigo-700">
+            <span class="h-2 w-2 rounded-full bg-indigo-500"></span>
+            Status praktisi Digitaliz
+          </div>
+
+          <h1 class="max-w-2xl text-4xl font-bold tracking-tight text-slate-950 md:text-5xl">
+            Temukan keberadaan praktisi Digitaliz dengan lebih mudah.
+          </h1>
+
+          <p class="mt-5 max-w-2xl text-base leading-7 text-slate-600 md:text-lg">
+            Lihat status keberadaan terbaru praktisi Digitaliz yang telah diverifikasi.
+            Informasi ditampilkan secara ringkas untuk membantu kebutuhan kunjungan dan komunikasi.
+          </p>
+        </div>
+
+        <!-- Summary -->
+        <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <p class="text-sm text-slate-500">Total Praktisi</p>
+            <p id="countAll" class="mt-2 text-3xl font-bold text-slate-950">8</p>
+          </div>
+
+          <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <p class="text-sm text-slate-500">Di Kantor</p>
+            <p id="countOffice" class="mt-2 text-3xl font-bold text-indigo-600">4</p>
+          </div>
+
+          <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <p class="text-sm text-slate-500">Di Luar Kantor</p>
+            <p id="countOutside" class="mt-2 text-3xl font-bold text-slate-950">3</p>
+          </div>
+
+          <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <p class="text-sm text-slate-500">Izin / Cuti</p>
+            <p id="countLeave" class="mt-2 text-3xl font-bold text-slate-950">1</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Practitioner Section -->
+    <section id="praktisi" class="border-y border-slate-200 bg-slate-50">
+      <div class="mx-auto max-w-7xl px-5 py-16 lg:px-8">
+        <div class="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <p class="text-sm font-semibold text-indigo-600">Praktisi Digitaliz</p>
+            <h2 class="mt-2 text-3xl font-bold tracking-tight text-slate-950">
+              Status keberadaan terkini
+            </h2>
+            <p class="mt-3 max-w-2xl text-sm leading-6 text-slate-600">
+              Hanya informasi yang telah diverifikasi yang ditampilkan kepada publik.
+            </p>
+          </div>
+
+          <div class="text-sm text-slate-500">
+            Terakhir diperbarui:
+            <span class="font-semibold text-slate-700">11 Agustus 2026, 14.10 WITA</span>
+          </div>
+        </div>
+
+        <!-- Search and Filter -->
+        <div class="mt-8 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+          <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+
+            <div class="relative flex-1">
+              <svg class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.3-4.3"></path>
+              </svg>
+
+              <input id="searchInput" type="text" placeholder="Cari nama atau divisi praktisi..."
+                class="w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-12 pr-4 text-sm outline-none transition placeholder:text-slate-400 focus:border-indigo-400 focus:bg-white focus:ring-4 focus:ring-indigo-100" />
+            </div>
+
+            <div class="flex flex-wrap gap-2">
+              <button class="filter-btn active rounded-xl bg-slate-950 px-4 py-2.5 text-sm font-semibold text-white"
+                data-filter="all">Semua</button>
+              <button
+                class="filter-btn rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-600 hover:border-indigo-200 hover:text-indigo-600"
+                data-filter="office">Di Kantor</button>
+              <button
+                class="filter-btn rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-600 hover:border-indigo-200 hover:text-indigo-600"
+                data-filter="outside">Di Luar</button>
+              <button
+                class="filter-btn rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-600 hover:border-indigo-200 hover:text-indigo-600"
+                data-filter="leave">Izin / Cuti</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cards -->
+        <div id="practitionerGrid" class="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+
+          <article
+            class="practitioner-card rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+            data-name="Muhammad Rizki Ramadhan" data-division="Web Development" data-status="outside">
+            <div class="flex items-start gap-4">
+              <div
+                class="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-indigo-50 font-bold text-indigo-700">
+                MR
+              </div>
+              <div class="min-w-0 flex-1">
+                <h3 class="truncate font-semibold text-slate-950">Muhammad Rizki Ramadhan</h3>
+                <p class="mt-1 text-sm text-slate-500">Web Development</p>
+              </div>
+              <span
+                class="inline-flex items-center gap-1.5 rounded-full bg-indigo-50 px-2.5 py-1 text-xs font-semibold text-indigo-700">
+                <span class="h-1.5 w-1.5 rounded-full bg-indigo-500"></span>
+                Di luar
+              </span>
+            </div>
+
+            <div class="mt-5 border-t border-slate-100 pt-5">
+              <p class="text-xs font-medium uppercase tracking-wide text-slate-400">Lokasi terverifikasi</p>
+              <p class="mt-2 font-medium text-slate-800">Hasnur Group Office, Banjarmasin</p>
+              <p class="mt-1 text-sm text-slate-500">Meeting dengan tim</p>
+            </div>
+
+            <div class="mt-5 flex items-center justify-between text-xs text-slate-500">
+              <span>Diperbarui 14.05 WITA</span>
+              <button class="font-semibold text-indigo-600 hover:text-indigo-700">Lihat detail</button>
+            </div>
+          </article>
+
+          <article
+            class="practitioner-card rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+            data-name="Ahda Sabila" data-division="UI UX Design" data-status="office">
+            <div class="flex items-start gap-4">
+              <div
+                class="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-indigo-50 font-bold text-indigo-700">
+                AS
+              </div>
+              <div class="min-w-0 flex-1">
+                <h3 class="truncate font-semibold text-slate-950">Ahda Sabila</h3>
+                <p class="mt-1 text-sm text-slate-500">UI/UX Design</p>
+              </div>
+              <span
+                class="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700">
+                <span class="h-1.5 w-1.5 rounded-full bg-slate-500"></span>
+                Di kantor
+              </span>
+            </div>
+
+            <div class="mt-5 border-t border-slate-100 pt-5">
+              <p class="text-xs font-medium uppercase tracking-wide text-slate-400">Lokasi terverifikasi</p>
+              <p class="mt-2 font-medium text-slate-800">Kantor Digitaliz</p>
+              <p class="mt-1 text-sm text-slate-500">Tersedia di kantor</p>
+            </div>
+
+            <div class="mt-5 flex items-center justify-between text-xs text-slate-500">
+              <span>Diperbarui 08.31 WITA</span>
+              <button class="font-semibold text-indigo-600 hover:text-indigo-700">Lihat detail</button>
+            </div>
+          </article>
+
+          <article
+            class="practitioner-card rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+            data-name="Irma Rosyidah" data-division="Creative" data-status="office">
+            <div class="flex items-start gap-4">
+              <div
+                class="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-indigo-50 font-bold text-indigo-700">
+                IR
+              </div>
+              <div class="min-w-0 flex-1">
+                <h3 class="truncate font-semibold text-slate-950">Irma Rosyidah</h3>
+                <p class="mt-1 text-sm text-slate-500">Creative</p>
+              </div>
+              <span
+                class="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700">
+                <span class="h-1.5 w-1.5 rounded-full bg-slate-500"></span>
+                Di kantor
+              </span>
+            </div>
+
+            <div class="mt-5 border-t border-slate-100 pt-5">
+              <p class="text-xs font-medium uppercase tracking-wide text-slate-400">Lokasi terverifikasi</p>
+              <p class="mt-2 font-medium text-slate-800">Kantor Digitaliz</p>
+              <p class="mt-1 text-sm text-slate-500">Aktivitas internal</p>
+            </div>
+
+            <div class="mt-5 flex items-center justify-between text-xs text-slate-500">
+              <span>Diperbarui 08.34 WITA</span>
+              <button class="font-semibold text-indigo-600 hover:text-indigo-700">Lihat detail</button>
+            </div>
+          </article>
+
+          <article
+            class="practitioner-card rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+            data-name="Fahri Ramadhan" data-division="Mobile Development" data-status="outside">
+            <div class="flex items-start gap-4">
+              <div
+                class="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-indigo-50 font-bold text-indigo-700">
+                FR
+              </div>
+              <div class="min-w-0 flex-1">
+                <h3 class="truncate font-semibold text-slate-950">Fahri Ramadhan</h3>
+                <p class="mt-1 text-sm text-slate-500">Mobile Development</p>
+              </div>
+              <span
+                class="inline-flex items-center gap-1.5 rounded-full bg-indigo-50 px-2.5 py-1 text-xs font-semibold text-indigo-700">
+                <span class="h-1.5 w-1.5 rounded-full bg-indigo-500"></span>
+                Di luar
+              </span>
+            </div>
+
+            <div class="mt-5 border-t border-slate-100 pt-5">
+              <p class="text-xs font-medium uppercase tracking-wide text-slate-400">Lokasi terverifikasi</p>
+              <p class="mt-2 font-medium text-slate-800">SMKN 1 Banjarmasin</p>
+              <p class="mt-1 text-sm text-slate-500">Kegiatan Digitaliz</p>
+            </div>
+
+            <div class="mt-5 flex items-center justify-between text-xs text-slate-500">
+              <span>Diperbarui 10.20 WITA</span>
+              <button class="font-semibold text-indigo-600 hover:text-indigo-700">Lihat detail</button>
+            </div>
+          </article>
+
+          <article
+            class="practitioner-card rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+            data-name="Nadia Putri" data-division="Project Management" data-status="leave">
+            <div class="flex items-start gap-4">
+              <div class="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-slate-100 font-bold text-slate-700">
+                NP
+              </div>
+              <div class="min-w-0 flex-1">
+                <h3 class="truncate font-semibold text-slate-950">Nadia Putri</h3>
+                <p class="mt-1 text-sm text-slate-500">Project Management</p>
+              </div>
+              <span
+                class="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-600">
+                Izin
+              </span>
+            </div>
+
+            <div class="mt-5 border-t border-slate-100 pt-5">
+              <p class="text-xs font-medium uppercase tracking-wide text-slate-400">Status</p>
+              <p class="mt-2 font-medium text-slate-800">Tidak berada di kantor</p>
+              <p class="mt-1 text-sm text-slate-500">Izin hari ini</p>
+            </div>
+
+            <div class="mt-5 flex items-center justify-between text-xs text-slate-500">
+              <span>Diperbarui 08.15 WITA</span>
+              <button class="font-semibold text-indigo-600 hover:text-indigo-700">Lihat detail</button>
+            </div>
+          </article>
+
+          <article
+            class="practitioner-card rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+            data-name="Reza Maulana" data-division="Web Development" data-status="office">
+            <div class="flex items-start gap-4">
+              <div
+                class="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-indigo-50 font-bold text-indigo-700">
+                RM
+              </div>
+              <div class="min-w-0 flex-1">
+                <h3 class="truncate font-semibold text-slate-950">Reza Maulana</h3>
+                <p class="mt-1 text-sm text-slate-500">Web Development</p>
+              </div>
+              <span
+                class="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700">
+                <span class="h-1.5 w-1.5 rounded-full bg-slate-500"></span>
+                Di kantor
+              </span>
+            </div>
+
+            <div class="mt-5 border-t border-slate-100 pt-5">
+              <p class="text-xs font-medium uppercase tracking-wide text-slate-400">Lokasi terverifikasi</p>
+              <p class="mt-2 font-medium text-slate-800">Kantor Digitaliz</p>
+              <p class="mt-1 text-sm text-slate-500">Development</p>
+            </div>
+
+            <div class="mt-5 flex items-center justify-between text-xs text-slate-500">
+              <span>Diperbarui 08.45 WITA</span>
+              <button class="font-semibold text-indigo-600 hover:text-indigo-700">Lihat detail</button>
+            </div>
+          </article>
+
+          <article
+            class="practitioner-card rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+            data-name="Dimas Akbar" data-division="Creative" data-status="outside">
+            <div class="flex items-start gap-4">
+              <div
+                class="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-indigo-50 font-bold text-indigo-700">
+                DA
+              </div>
+              <div class="min-w-0 flex-1">
+                <h3 class="truncate font-semibold text-slate-950">Dimas Akbar</h3>
+                <p class="mt-1 text-sm text-slate-500">Creative</p>
+              </div>
+              <span
+                class="inline-flex items-center gap-1.5 rounded-full bg-indigo-50 px-2.5 py-1 text-xs font-semibold text-indigo-700">
+                <span class="h-1.5 w-1.5 rounded-full bg-indigo-500"></span>
+                Di luar
+              </span>
+            </div>
+
+            <div class="mt-5 border-t border-slate-100 pt-5">
+              <p class="text-xs font-medium uppercase tracking-wide text-slate-400">Lokasi terverifikasi</p>
+              <p class="mt-2 font-medium text-slate-800">Banjarmasin</p>
+              <p class="mt-1 text-sm text-slate-500">Produksi konten</p>
+            </div>
+
+            <div class="mt-5 flex items-center justify-between text-xs text-slate-500">
+              <span>Diperbarui 13.40 WITA</span>
+              <button class="font-semibold text-indigo-600 hover:text-indigo-700">Lihat detail</button>
+            </div>
+          </article>
+
+          <article
+            class="practitioner-card rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+            data-name="Salsa Aulia" data-division="UI UX Design" data-status="office">
+            <div class="flex items-start gap-4">
+              <div
+                class="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-indigo-50 font-bold text-indigo-700">
+                SA
+              </div>
+              <div class="min-w-0 flex-1">
+                <h3 class="truncate font-semibold text-slate-950">Salsa Aulia</h3>
+                <p class="mt-1 text-sm text-slate-500">UI/UX Design</p>
+              </div>
+              <span
+                class="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700">
+                <span class="h-1.5 w-1.5 rounded-full bg-slate-500"></span>
+                Di kantor
+              </span>
+            </div>
+
+            <div class="mt-5 border-t border-slate-100 pt-5">
+              <p class="text-xs font-medium uppercase tracking-wide text-slate-400">Lokasi terverifikasi</p>
+              <p class="mt-2 font-medium text-slate-800">Kantor Digitaliz</p>
+              <p class="mt-1 text-sm text-slate-500">Design review</p>
+            </div>
+
+            <div class="mt-5 flex items-center justify-between text-xs text-slate-500">
+              <span>Diperbarui 09.10 WITA</span>
+              <button class="font-semibold text-indigo-600 hover:text-indigo-700">Lihat detail</button>
+            </div>
+          </article>
+
+        </div>
+
+        <div id="emptyState"
+          class="mt-8 hidden rounded-2xl border border-dashed border-slate-300 bg-white p-10 text-center">
+          <p class="font-semibold text-slate-800">Praktisi tidak ditemukan</p>
+          <p class="mt-2 text-sm text-slate-500">Coba gunakan kata kunci atau filter yang berbeda.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Information -->
+    <section id="informasi" class="bg-white">
+      <div class="mx-auto grid max-w-7xl gap-8 px-5 py-16 lg:grid-cols-2 lg:px-8">
+        <div>
+          <p class="text-sm font-semibold text-indigo-600">Informasi Layanan</p>
+          <h2 class="mt-2 text-3xl font-bold tracking-tight text-slate-950">Jam operasional</h2>
+          <p class="mt-4 max-w-xl text-sm leading-6 text-slate-600">
+            Status keberadaan ditampilkan selama jam kerja Digitaliz. Di luar jam operasional,
+            sistem tidak menampilkan detail lokasi terakhir praktisi.
+          </p>
+        </div>
+
+        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-6">
+          <div class="flex items-center justify-between border-b border-slate-200 py-4 first:pt-0">
+            <span class="text-sm font-medium text-slate-600">Senin – Jumat</span>
+            <span class="text-sm font-semibold text-slate-950">08.30 – 16.30 WITA</span>
+          </div>
+          <div class="flex items-center justify-between py-4">
+            <span class="text-sm font-medium text-slate-600">Sabtu</span>
+            <span class="text-sm font-semibold text-slate-950">08.30 – 13.30 WITA</span>
+          </div>
+          <div class="rounded-xl bg-indigo-50 p-4 text-sm leading-6 text-indigo-800">
+            Informasi publik hanya menampilkan lokasi yang telah diverifikasi dan disederhanakan untuk menjaga privasi
+            praktisi.
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-slate-200 bg-slate-950">
+    <div
+      class="mx-auto flex max-w-7xl flex-col gap-4 px-5 py-8 text-sm text-slate-400 md:flex-row md:items-center md:justify-between lg:px-8">
+      <p>© 2026 Digitaliz — Hasnur Centre.</p>
+      <p>Status lokasi praktisi untuk kebutuhan informasi publik.</p>
+    </div>
+  </footer>
+
+  <script>
+    const searchInput = document.getElementById('searchInput');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.practitioner-card');
+    const emptyState = document.getElementById('emptyState');
+
+    let currentFilter = 'all';
+
+    function updateList() {
+      const keyword = searchInput.value.toLowerCase().trim();
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        const name = card.dataset.name.toLowerCase();
+        const division = card.dataset.division.toLowerCase();
+        const status = card.dataset.status;
+
+        const matchesSearch = name.includes(keyword) || division.includes(keyword);
+        const matchesFilter = currentFilter === 'all' || status === currentFilter;
+        const shouldShow = matchesSearch && matchesFilter;
+
+        card.classList.toggle('hidden', !shouldShow);
+        if (shouldShow) visibleCount++;
+      });
+
+      emptyState.classList.toggle('hidden', visibleCount !== 0);
+    }
+
+    searchInput.addEventListener('input', updateList);
+
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        currentFilter = button.dataset.filter;
+
+        filterButtons.forEach(btn => {
+          btn.classList.remove('bg-slate-950', 'text-white');
+          btn.classList.add('border', 'border-slate-200', 'bg-white', 'text-slate-600');
+        });
+
+        button.classList.remove('border', 'border-slate-200', 'bg-white', 'text-slate-600');
+        button.classList.add('bg-slate-950', 'text-white');
+
+        updateList();
+      });
+    });
+  </script>
+</body>
+
+</html>
