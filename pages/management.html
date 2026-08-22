@@ -1,615 +1,1783 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Management Dashboard | Digitaliz</title>
+
   <script src="https://cdn.tailwindcss.com"></script>
+
   <script>
     tailwind.config = {
       theme: {
         extend: {
           fontFamily: {
-            sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-          }
-        }
-      }
-    }
+            sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+          },
+        },
+      },
+    };
   </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
 </head>
 
-<body class="bg-slate-50 text-slate-900 antialiased">
+<body class="bg-slate-50 font-sans text-slate-900 antialiased">
 
-  <!-- Topbar -->
+  <!-- ==================================================
+       TOPBAR
+  =================================================== -->
   <header class="sticky top-0 z-40 border-b border-slate-200/80 bg-white/90 backdrop-blur">
+
     <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
+
       <div class="flex items-center gap-3">
-        <div class="grid h-10 w-10 place-items-center rounded-xl bg-indigo-600 text-sm font-bold text-white">
+
+        <div
+          class="grid h-10 w-10 place-items-center rounded-xl bg-indigo-600 text-sm font-bold text-white"
+        >
           D
         </div>
+
         <div>
-          <p class="text-sm font-bold tracking-tight text-slate-950">Digitaliz</p>
-          <p class="text-xs text-slate-500">Management Portal</p>
-        </div>
-      </div>
+          <p class="text-sm font-bold tracking-tight text-slate-950">
+            Digitaliz
+          </p>
 
-      <div class="flex items-center gap-3">
-        <div class="hidden text-right sm:block">
-          <p class="text-sm font-semibold text-slate-900">Admin Digitaliz</p>
-          <p class="text-xs text-slate-500">Management</p>
-        </div>
-        <div class="grid h-10 w-10 place-items-center rounded-full bg-slate-950 text-xs font-bold text-white">
-          AD
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main class="mx-auto max-w-7xl px-5 py-8 lg:px-8 lg:py-10">
-
-    <!-- Page Header -->
-    <section class="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
-      <div>
-        <p class="text-sm font-semibold text-indigo-600">Management Dashboard</p>
-        <h1 class="mt-2 text-3xl font-bold tracking-tight text-slate-950 md:text-4xl">
-          Monitoring Lokasi Praktisi
-        </h1>
-        <p class="mt-3 max-w-2xl text-sm leading-6 text-slate-600">
-          Pantau status praktisi, validasi laporan lokasi, dan kelola informasi yang akan ditampilkan kepada publik.
-        </p>
-      </div>
-
-      <div class="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm shadow-sm">
-        <p class="text-xs font-medium uppercase tracking-wide text-slate-400">Waktu Sistem</p>
-        <p id="liveClock" class="mt-1 font-semibold text-slate-800">-</p>
-      </div>
-    </section>
-
-    <!-- Summary Cards -->
-    <section class="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-      <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-        <p class="text-sm text-slate-500">Total Praktisi</p>
-        <div class="mt-3 flex items-end justify-between">
-          <p id="totalCount" class="text-3xl font-bold text-slate-950">8</p>
-          <span class="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-600">Aktif</span>
-        </div>
-      </div>
-
-      <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-        <p class="text-sm text-slate-500">Di Kantor</p>
-        <div class="mt-3 flex items-end justify-between">
-          <p id="officeCount" class="text-3xl font-bold text-indigo-600">4</p>
-          <span class="rounded-full bg-indigo-50 px-2.5 py-1 text-xs font-semibold text-indigo-700">Hari ini</span>
-        </div>
-      </div>
-
-      <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-        <p class="text-sm text-slate-500">Di Luar Kantor</p>
-        <div class="mt-3 flex items-end justify-between">
-          <p id="outsideCount" class="text-3xl font-bold text-slate-950">3</p>
-          <span class="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-600">Terverifikasi</span>
-        </div>
-      </div>
-
-      <div class="rounded-2xl border border-indigo-100 bg-indigo-50 p-5 shadow-sm">
-        <p class="text-sm text-indigo-700">Menunggu Validasi</p>
-        <div class="mt-3 flex items-end justify-between">
-          <p id="pendingCount" class="text-3xl font-bold text-indigo-700">2</p>
-          <span class="rounded-full bg-white px-2.5 py-1 text-xs font-semibold text-indigo-700 shadow-sm">Perlu tindakan</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- Validation Queue -->
-    <section class="mt-6 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-7">
-      <div class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-        <div>
-          <p class="text-sm font-semibold text-indigo-600">Antrean Validasi</p>
-          <h2 class="mt-1 text-2xl font-bold tracking-tight text-slate-950">Update lokasi terbaru</h2>
-          <p class="mt-2 text-sm text-slate-500">
-            Tinjau laporan lokasi sebelum informasi ditampilkan kepada publik.
+          <p class="text-xs text-slate-500">
+            Management Portal
           </p>
         </div>
 
-        <div class="flex flex-col gap-3 sm:flex-row">
-          <input id="validationSearch"
-                 type="text"
-                 placeholder="Cari nama praktisi..."
-                 class="rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm outline-none placeholder:text-slate-400 focus:border-indigo-400 focus:bg-white focus:ring-4 focus:ring-indigo-100" />
+      </div>
 
-          <select id="validationFilter"
-                  class="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 outline-none focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100">
-            <option value="all">Semua status</option>
-            <option value="pending">Pending</option>
-            <option value="approved">Disetujui</option>
-          </select>
+      <div class="flex items-center gap-3">
+
+        <div class="hidden text-right sm:block">
+          <p class="text-sm font-semibold text-slate-900">
+            Admin Digitaliz
+          </p>
+
+          <p class="text-xs text-slate-500">
+            Management
+          </p>
         </div>
-      </div>
 
-      <div id="validationList" class="mt-6 space-y-4">
-
-        <!-- Request 1 -->
-        <article class="validation-item rounded-2xl border border-indigo-100 bg-indigo-50/40 p-5"
-                 data-name="Muhammad Rizki Ramadhan"
-                 data-status="pending"
-                 data-id="req-1">
-          <div class="flex flex-col gap-5 xl:flex-row xl:items-start xl:justify-between">
-            <div class="flex min-w-0 gap-4">
-              <div class="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-white font-bold text-indigo-700 shadow-sm">
-                MR
-              </div>
-
-              <div class="min-w-0">
-                <div class="flex flex-wrap items-center gap-2">
-                  <h3 class="font-semibold text-slate-950">Muhammad Rizki Ramadhan</h3>
-                  <span class="request-status rounded-full bg-amber-50 px-2.5 py-1 text-xs font-semibold text-amber-700">
-                    Pending
-                  </span>
-                </div>
-                <p class="mt-1 text-sm text-slate-500">Web Development</p>
-
-                <div class="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-                  <div>
-                    <p class="text-xs font-medium uppercase tracking-wide text-slate-400">Lokasi Internal</p>
-                    <p class="mt-1 text-sm font-semibold text-slate-800">Hasnur Group Office, Banjarmasin</p>
-                  </div>
-                  <div>
-                    <p class="text-xs font-medium uppercase tracking-wide text-slate-400">Kegiatan</p>
-                    <p class="mt-1 text-sm font-semibold text-slate-800">Meeting dengan tim marketing</p>
-                  </div>
-                  <div>
-                    <p class="text-xs font-medium uppercase tracking-wide text-slate-400">Update</p>
-                    <p class="mt-1 text-sm font-semibold text-slate-800">14.05 WITA</p>
-                  </div>
-                </div>
-
-                <div class="mt-4 rounded-xl bg-white p-4">
-                  <label class="text-xs font-medium uppercase tracking-wide text-slate-400">
-                    Lokasi yang ditampilkan ke publik
-                  </label>
-                  <input class="public-location mt-2 w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100"
-                         value="Hasnur Group Office, Banjarmasin" />
-                </div>
-              </div>
-            </div>
-
-            <div class="flex shrink-0 flex-wrap gap-2 xl:w-52 xl:flex-col">
-              <button class="approve-btn rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700">
-                Setujui
-              </button>
-              <button class="reject-btn rounded-xl border border-rose-100 bg-rose-50 px-4 py-2.5 text-sm font-semibold text-rose-700 hover:bg-rose-100">
-                Tolak
-              </button>
-            </div>
-          </div>
-        </article>
-
-        <!-- Request 2 -->
-        <article class="validation-item rounded-2xl border border-indigo-100 bg-indigo-50/40 p-5"
-                 data-name="Dimas Akbar"
-                 data-status="pending"
-                 data-id="req-2">
-          <div class="flex flex-col gap-5 xl:flex-row xl:items-start xl:justify-between">
-            <div class="flex min-w-0 gap-4">
-              <div class="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-white font-bold text-indigo-700 shadow-sm">
-                DA
-              </div>
-
-              <div class="min-w-0">
-                <div class="flex flex-wrap items-center gap-2">
-                  <h3 class="font-semibold text-slate-950">Dimas Akbar</h3>
-                  <span class="request-status rounded-full bg-amber-50 px-2.5 py-1 text-xs font-semibold text-amber-700">
-                    Pending
-                  </span>
-                </div>
-                <p class="mt-1 text-sm text-slate-500">Creative</p>
-
-                <div class="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-                  <div>
-                    <p class="text-xs font-medium uppercase tracking-wide text-slate-400">Lokasi Internal</p>
-                    <p class="mt-1 text-sm font-semibold text-slate-800">Studio Kreatif, Banjarmasin</p>
-                  </div>
-                  <div>
-                    <p class="text-xs font-medium uppercase tracking-wide text-slate-400">Kegiatan</p>
-                    <p class="mt-1 text-sm font-semibold text-slate-800">Produksi konten</p>
-                  </div>
-                  <div>
-                    <p class="text-xs font-medium uppercase tracking-wide text-slate-400">Update</p>
-                    <p class="mt-1 text-sm font-semibold text-slate-800">13.40 WITA</p>
-                  </div>
-                </div>
-
-                <div class="mt-4 rounded-xl bg-white p-4">
-                  <label class="text-xs font-medium uppercase tracking-wide text-slate-400">
-                    Lokasi yang ditampilkan ke publik
-                  </label>
-                  <input class="public-location mt-2 w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100"
-                         value="Banjarmasin" />
-                </div>
-              </div>
-            </div>
-
-            <div class="flex shrink-0 flex-wrap gap-2 xl:w-52 xl:flex-col">
-              <button class="approve-btn rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700">
-                Setujui
-              </button>
-              <button class="reject-btn rounded-xl border border-rose-100 bg-rose-50 px-4 py-2.5 text-sm font-semibold text-rose-700 hover:bg-rose-100">
-                Tolak
-              </button>
-            </div>
-          </div>
-        </article>
+        <div
+          class="grid h-10 w-10 place-items-center rounded-full bg-slate-950 text-xs font-bold text-white"
+        >
+          AD
+        </div>
 
       </div>
 
-      <div id="validationEmpty" class="mt-6 hidden rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-8 text-center">
-        <p class="font-semibold text-slate-800">Tidak ada data yang sesuai.</p>
-        <p class="mt-1 text-sm text-slate-500">Coba ubah pencarian atau filter.</p>
+    </div>
+
+  </header>
+
+
+  <!-- ==================================================
+       MAIN
+  =================================================== -->
+  <main class="mx-auto max-w-7xl px-5 py-8 lg:px-8 lg:py-10">
+
+    <!-- PAGE HEADER -->
+    <section class="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+
+      <div>
+
+        <p class="text-sm font-semibold text-indigo-600">
+          Management Dashboard
+        </p>
+
+        <h1 class="mt-2 text-3xl font-bold tracking-tight text-slate-950 md:text-4xl">
+          Monitoring Lokasi Praktisi
+        </h1>
+
+        <p class="mt-3 max-w-2xl text-sm leading-6 text-slate-600">
+          Pantau status praktisi, validasi laporan lokasi,
+          dan kelola informasi yang akan ditampilkan kepada publik.
+        </p>
+
       </div>
+
+      <div class="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm shadow-sm">
+
+        <p class="text-xs font-medium uppercase tracking-wide text-slate-400">
+          Waktu Sistem
+        </p>
+
+        <p id="liveClock" class="mt-1 font-semibold text-slate-800">
+          -
+        </p>
+
+      </div>
+
     </section>
 
-    <!-- Employee Monitoring -->
+
+    <!-- ==================================================
+         SUMMARY
+    =================================================== -->
+    <section class="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+
+      <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+
+        <p class="text-sm text-slate-500">
+          Total Praktisi
+        </p>
+
+        <div class="mt-3 flex items-end justify-between">
+
+          <p id="totalCount" class="text-3xl font-bold text-slate-950">
+            8
+          </p>
+
+          <span
+            class="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-600"
+          >
+            Aktif
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+
+        <p class="text-sm text-slate-500">
+          Di Kantor
+        </p>
+
+        <div class="mt-3 flex items-end justify-between">
+
+          <p id="officeCount" class="text-3xl font-bold text-indigo-600">
+            4
+          </p>
+
+          <span
+            class="rounded-full bg-green-50 px-2.5 py-1 text-xs font-semibold text-green-700"
+          >
+            Hari ini
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+
+        <p class="text-sm text-slate-500">
+          Di Luar Kantor
+        </p>
+
+        <div class="mt-3 flex items-end justify-between">
+
+          <p id="outsideCount" class="text-3xl font-bold text-slate-950">
+            3
+          </p>
+
+          <span
+            class="rounded-full bg-red-50 px-2.5 py-1 text-xs font-semibold text-red-700"
+          >
+            Terverifikasi
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="rounded-2xl border border-indigo-100 bg-indigo-50 p-5 shadow-sm">
+
+        <p class="text-sm text-indigo-700">
+          Menunggu Validasi
+        </p>
+
+        <div class="mt-3 flex items-end justify-between">
+
+          <p id="pendingCount" class="text-3xl font-bold text-indigo-700">
+            0
+          </p>
+
+          <span
+            class="rounded-full bg-white px-2.5 py-1 text-xs font-semibold text-indigo-700 shadow-sm"
+          >
+            Perlu tindakan
+          </span>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ==================================================
+         VALIDATION QUEUE
+    =================================================== -->
+    <section class="mt-6 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-7">
+
+      <div class="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+
+        <div>
+
+          <p class="text-sm font-semibold text-indigo-600">
+            Antrean Validasi
+          </p>
+
+          <h2 class="mt-1 text-2xl font-bold tracking-tight text-slate-950">
+            Update lokasi terbaru
+          </h2>
+
+          <p class="mt-2 text-sm text-slate-500">
+            Tinjau laporan lokasi sebelum informasi ditampilkan kepada publik.
+          </p>
+
+        </div>
+
+
+        <div class="flex flex-col gap-3 sm:flex-row">
+
+          <input
+            id="validationSearch"
+            type="text"
+            placeholder="Cari nama praktisi..."
+            class="rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm outline-none placeholder:text-slate-400 focus:border-indigo-400 focus:bg-white focus:ring-4 focus:ring-indigo-100"
+          />
+
+
+          <select
+            id="validationFilter"
+            class="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 outline-none focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100"
+          >
+
+            <option value="all">
+              Semua status
+            </option>
+
+            <option value="pending">
+              Pending
+            </option>
+
+            <option value="approved">
+              Disetujui
+            </option>
+
+            <option value="rejected">
+              Ditolak
+            </option>
+
+          </select>
+
+        </div>
+
+      </div>
+
+
+      <!--
+        CARD TIDAK DITULIS MANUAL LAGI.
+        JAVASCRIPT AKAN MEMBUATNYA OTOMATIS DI SINI.
+      -->
+      <div
+        id="validationList"
+        class="mt-7 space-y-5"
+      >
+      </div>
+
+
+      <div
+        id="validationEmpty"
+        class="mt-6 hidden rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-8 text-center"
+      >
+
+        <p class="font-semibold text-slate-800">
+          Tidak ada data yang sesuai.
+        </p>
+
+        <p class="mt-1 text-sm text-slate-500">
+          Coba ubah pencarian atau filter.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- ==================================================
+         MONITORING PRAKTISI
+    =================================================== -->
     <section class="mt-6">
 
       <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+
         <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+
           <div>
-            <p class="text-sm font-semibold text-indigo-600">Monitoring Praktisi</p>
-            <h2 class="mt-1 text-xl font-bold text-slate-950">Status seluruh praktisi</h2>
+
+            <p class="text-sm font-semibold text-indigo-600">
+              Monitoring Praktisi
+            </p>
+
+            <h2 class="mt-1 text-xl font-bold text-slate-950">
+              Status seluruh praktisi
+            </h2>
+
           </div>
+
 
           <div class="flex flex-col gap-2 sm:flex-row">
-            <input id="employeeSearch"
-                   type="text"
-                   placeholder="Cari nama/divisi..."
-                   class="rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm outline-none placeholder:text-slate-400 focus:border-indigo-400 focus:bg-white focus:ring-4 focus:ring-indigo-100" />
 
-            <select id="employeeFilter"
-                    class="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 outline-none focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100">
-              <option value="all">Semua lokasi</option>
-              <option value="office">Di kantor</option>
-              <option value="outside">Di luar</option>
-              <option value="leave">Izin / Cuti</option>
+            <input
+              id="employeeSearch"
+              type="text"
+              placeholder="Cari nama/divisi..."
+              class="rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm outline-none placeholder:text-slate-400 focus:border-indigo-400 focus:bg-white focus:ring-4 focus:ring-indigo-100"
+            />
+
+
+            <select
+              id="employeeFilter"
+              class="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 outline-none focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100"
+            >
+
+              <option value="all">
+                Semua lokasi
+              </option>
+
+              <option value="office">
+                Di kantor
+              </option>
+
+              <option value="outside">
+                Di luar
+              </option>
+
+              <option value="leave">
+                Izin / Cuti
+              </option>
+
             </select>
+
           </div>
+
         </div>
+
 
         <div class="mt-6 overflow-x-auto">
+
           <table class="w-full min-w-[760px] text-left text-sm">
+
             <thead>
+
               <tr class="border-b border-slate-200 text-xs uppercase tracking-wide text-slate-400">
-                <th class="pb-3 font-semibold">Praktisi</th>
-                <th class="pb-3 font-semibold">Status</th>
-                <th class="pb-3 font-semibold">Lokasi Publik</th>
-                <th class="pb-3 font-semibold">Update</th>
-                <th class="pb-3 font-semibold">Validasi</th>
+
+                <th class="pb-3 font-semibold">
+                  Praktisi
+                </th>
+
+                <th class="pb-3 font-semibold">
+                  Status
+                </th>
+
+                <th class="pb-3 font-semibold">
+                  Lokasi Publik
+                </th>
+
+                <th class="pb-3 font-semibold">
+                  Update
+                </th>
+
+                <th class="pb-3 font-semibold">
+                  Validasi
+                </th>
+
               </tr>
+
             </thead>
+
+
             <tbody id="employeeTableBody">
-              <tr class="employee-row border-b border-slate-100" data-name="Ahda Sabila UI UX Design" data-status="office">
+
+              <!-- AHDA -->
+              <tr
+                class="employee-row border-b border-slate-100"
+                data-name="Ahda Sabila UI UX Design"
+                data-status="office"
+              >
+
                 <td class="py-4">
-                  <p class="font-semibold text-slate-900">Ahda Sabila</p>
-                  <p class="mt-1 text-xs text-slate-500">UI/UX Design</p>
+
+                  <p class="font-semibold text-slate-900">
+                    Ahda Sabila
+                  </p>
+
+                  <p class="mt-1 text-xs text-slate-500">
+                    UI/UX Design
+                  </p>
+
                 </td>
-                <td class="py-4"><span class="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700">Di kantor</span></td>
-                <td class="py-4 text-slate-600">Kantor Digitaliz</td>
-                <td class="py-4 text-slate-500">08.31 WITA</td>
-                <td class="py-4"><span class="text-xs font-semibold text-indigo-700">Disetujui</span></td>
+
+                <td class="py-4">
+
+                  <span
+                    class="rounded-full bg-green-50 px-2.5 py-1 text-xs font-semibold text-green-700"
+                  >
+                    Di kantor
+                  </span>
+
+                </td>
+
+                <td class="py-4 text-slate-600">
+                  Kantor Digitaliz
+                </td>
+
+                <td class="py-4 text-slate-500">
+                  08.31 WITA
+                </td>
+
+                <td class="py-4">
+
+                  <span class="text-xs font-semibold text-indigo-700">
+                    Disetujui
+                  </span>
+
+                </td>
+
               </tr>
 
-              <tr class="employee-row border-b border-slate-100" data-name="Irma Rosyidah Creative" data-status="office">
+
+              <!-- IRMA -->
+              <tr
+                class="employee-row border-b border-slate-100"
+                data-name="Irma Rosyidah Creative"
+                data-status="office"
+              >
+
                 <td class="py-4">
-                  <p class="font-semibold text-slate-900">Irma Rosyidah</p>
-                  <p class="mt-1 text-xs text-slate-500">Creative</p>
+
+                  <p class="font-semibold text-slate-900">
+                    Irma Rosyidah
+                  </p>
+
+                  <p class="mt-1 text-xs text-slate-500">
+                    Creative
+                  </p>
+
                 </td>
-                <td class="py-4"><span class="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700">Di kantor</span></td>
-                <td class="py-4 text-slate-600">Kantor Digitaliz</td>
-                <td class="py-4 text-slate-500">08.34 WITA</td>
-                <td class="py-4"><span class="text-xs font-semibold text-indigo-700">Disetujui</span></td>
+
+                <td class="py-4">
+
+                  <span
+                    class="rounded-full bg-green-50 px-2.5 py-1 text-xs font-semibold text-green-700"
+                  >
+                    Di kantor
+                  </span>
+
+                </td>
+
+                <td class="py-4 text-slate-600">
+                  Kantor Digitaliz
+                </td>
+
+                <td class="py-4 text-slate-500">
+                  08.34 WITA
+                </td>
+
+                <td class="py-4">
+
+                  <span class="text-xs font-semibold text-indigo-700">
+                    Disetujui
+                  </span>
+
+                </td>
+
               </tr>
 
-              <tr class="employee-row border-b border-slate-100" data-name="Muhammad Rizki Ramadhan Web Development" data-status="outside">
+
+              <!-- RIZKI -->
+              <tr
+                class="employee-row border-b border-slate-100"
+                data-name="Muhammad Rizki Ramadhan Web Development"
+                data-status="outside"
+              >
+
                 <td class="py-4">
-                  <p class="font-semibold text-slate-900">Muhammad Rizki Ramadhan</p>
-                  <p class="mt-1 text-xs text-slate-500">Web Development</p>
+
+                  <p class="font-semibold text-slate-900">
+                    Muhammad Rizki Ramadhan
+                  </p>
+
+                  <p class="mt-1 text-xs text-slate-500">
+                    Web Development
+                  </p>
+
                 </td>
-                <td class="py-4"><span class="rounded-full bg-indigo-50 px-2.5 py-1 text-xs font-semibold text-indigo-700">Di luar</span></td>
-                <td class="py-4 text-slate-600">Hasnur Group Office</td>
-                <td class="py-4 text-slate-500">14.05 WITA</td>
-                <td class="py-4"><span class="text-xs font-semibold text-rose-700">Ditolak</span></td>
+
+                <td class="py-4">
+
+                  <span
+                    class="rounded-full bg-red-50 px-2.5 py-1 text-xs font-semibold text-red-700"
+                  >
+                    Di luar
+                  </span>
+
+                </td>
+
+                <td class="py-4 text-slate-600">
+                  Hasnur Group Office
+                </td>
+
+                <td class="py-4 text-slate-500">
+                  14.05 WITA
+                </td>
+
+                <td class="py-4">
+
+                  <span class="text-xs font-semibold text-rose-700">
+                    Ditolak
+                  </span>
+
+                </td>
+
               </tr>
 
-              <tr class="employee-row border-b border-slate-100" data-name="Fahri Ramadhan Mobile Development" data-status="outside">
+
+              <!-- FAHRI -->
+              <tr
+                class="employee-row border-b border-slate-100"
+                data-name="Fahri Ramadhan Mobile Development"
+                data-status="outside"
+              >
+
                 <td class="py-4">
-                  <p class="font-semibold text-slate-900">Fahri Ramadhan</p>
-                  <p class="mt-1 text-xs text-slate-500">Mobile Development</p>
+
+                  <p class="font-semibold text-slate-900">
+                    Fahri Ramadhan
+                  </p>
+
+                  <p class="mt-1 text-xs text-slate-500">
+                    Mobile Development
+                  </p>
+
                 </td>
-                <td class="py-4"><span class="rounded-full bg-indigo-50 px-2.5 py-1 text-xs font-semibold text-indigo-700">Di luar</span></td>
-                <td class="py-4 text-slate-600">SMKN 1 Banjarmasin</td>
-                <td class="py-4 text-slate-500">10.20 WITA</td>
-                <td class="py-4"><span class="text-xs font-semibold text-indigo-700">Disetujui</span></td>
+
+                <td class="py-4">
+
+                  <span
+                    class="rounded-full bg-red-50 px-2.5 py-1 text-xs font-semibold text-red-700"
+                  >
+                    Di luar
+                  </span>
+
+                </td>
+
+                <td class="py-4 text-slate-600">
+                  SMKN 1 Banjarmasin
+                </td>
+
+                <td class="py-4 text-slate-500">
+                  10.20 WITA
+                </td>
+
+                <td class="py-4">
+
+                  <span class="text-xs font-semibold text-indigo-700">
+                    Disetujui
+                  </span>
+
+                </td>
+
               </tr>
 
-              <tr class="employee-row border-b border-slate-100" data-name="Nadia Putri Project Management" data-status="leave">
+
+              <!-- NADIA -->
+              <tr
+                class="employee-row border-b border-slate-100"
+                data-name="Nadia Putri Project Management"
+                data-status="leave"
+              >
+
                 <td class="py-4">
-                  <p class="font-semibold text-slate-900">Nadia Putri</p>
-                  <p class="mt-1 text-xs text-slate-500">Project Management</p>
+
+                  <p class="font-semibold text-slate-900">
+                    Nadia Putri
+                  </p>
+
+                  <p class="mt-1 text-xs text-slate-500">
+                    Project Management
+                  </p>
+
                 </td>
-                <td class="py-4"><span class="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-600">Izin</span></td>
-                <td class="py-4 text-slate-600">Tidak ditampilkan</td>
-                <td class="py-4 text-slate-500">08.15 WITA</td>
-                <td class="py-4"><span class="text-xs font-semibold text-indigo-700">Disetujui</span></td>
+
+                <td class="py-4">
+
+                  <span
+                    class="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-600"
+                  >
+                    Izin
+                  </span>
+
+                </td>
+
+                <td class="py-4 text-slate-600">
+                  Tidak ditampilkan
+                </td>
+
+                <td class="py-4 text-slate-500">
+                  08.15 WITA
+                </td>
+
+                <td class="py-4">
+
+                  <span class="text-xs font-semibold text-indigo-700">
+                    Disetujui
+                  </span>
+
+                </td>
+
               </tr>
 
-              <tr class="employee-row border-b border-slate-100" data-name="Reza Maulana Web Development" data-status="office">
+
+              <!-- REZA -->
+              <tr
+                class="employee-row border-b border-slate-100"
+                data-name="Reza Maulana Web Development"
+                data-status="office"
+              >
+
                 <td class="py-4">
-                  <p class="font-semibold text-slate-900">Reza Maulana</p>
-                  <p class="mt-1 text-xs text-slate-500">Web Development</p>
+
+                  <p class="font-semibold text-slate-900">
+                    Reza Maulana
+                  </p>
+
+                  <p class="mt-1 text-xs text-slate-500">
+                    Web Development
+                  </p>
+
                 </td>
-                <td class="py-4"><span class="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700">Di kantor</span></td>
-                <td class="py-4 text-slate-600">Kantor Digitaliz</td>
-                <td class="py-4 text-slate-500">08.45 WITA</td>
-                <td class="py-4"><span class="text-xs font-semibold text-indigo-700">Disetujui</span></td>
+
+                <td class="py-4">
+
+                  <span
+                    class="rounded-full bg-green-50 px-2.5 py-1 text-xs font-semibold text-green-700"
+                  >
+                    Di kantor
+                  </span>
+
+                </td>
+
+                <td class="py-4 text-slate-600">
+                  Kantor Digitaliz
+                </td>
+
+                <td class="py-4 text-slate-500">
+                  08.45 WITA
+                </td>
+
+                <td class="py-4">
+
+                  <span class="text-xs font-semibold text-indigo-700">
+                    Disetujui
+                  </span>
+
+                </td>
+
               </tr>
 
-              <tr class="employee-row border-b border-slate-100" data-name="Dimas Akbar Creative" data-status="outside">
+
+              <!-- DIMAS -->
+              <tr
+                class="employee-row border-b border-slate-100"
+                data-name="Dimas Akbar Creative"
+                data-status="outside"
+              >
+
                 <td class="py-4">
-                  <p class="font-semibold text-slate-900">Dimas Akbar</p>
-                  <p class="mt-1 text-xs text-slate-500">Creative</p>
+
+                  <p class="font-semibold text-slate-900">
+                    Dimas Akbar
+                  </p>
+
+                  <p class="mt-1 text-xs text-slate-500">
+                    Creative
+                  </p>
+
                 </td>
-                <td class="py-4"><span class="rounded-full bg-indigo-50 px-2.5 py-1 text-xs font-semibold text-indigo-700">Di luar</span></td>
-                <td class="py-4 text-slate-600">Banjarmasin</td>
-                <td class="py-4 text-slate-500">13.40 WITA</td>
-                <td class="py-4"><span class="text-xs font-semibold text-rose-700">Ditolak</span></td>
+
+                <td class="py-4">
+
+                  <span
+                    class="rounded-full bg-red-50 px-2.5 py-1 text-xs font-semibold text-red-700"
+                  >
+                    Di luar
+                  </span>
+
+                </td>
+
+                <td class="py-4 text-slate-600">
+                  Banjarmasin
+                </td>
+
+                <td class="py-4 text-slate-500">
+                  13.40 WITA
+                </td>
+
+                <td class="py-4">
+
+                  <span class="text-xs font-semibold text-rose-700">
+                    Ditolak
+                  </span>
+
+                </td>
+
               </tr>
 
-              <tr class="employee-row" data-name="Salsa Aulia UI UX Design" data-status="office">
+
+              <!-- SALSA -->
+              <tr
+                class="employee-row"
+                data-name="Salsa Aulia UI UX Design"
+                data-status="office"
+              >
+
                 <td class="py-4">
-                  <p class="font-semibold text-slate-900">Salsa Aulia</p>
-                  <p class="mt-1 text-xs text-slate-500">UI/UX Design</p>
+
+                  <p class="font-semibold text-slate-900">
+                    Salsa Aulia
+                  </p>
+
+                  <p class="mt-1 text-xs text-slate-500">
+                    UI/UX Design
+                  </p>
+
                 </td>
-                <td class="py-4"><span class="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700">Di kantor</span></td>
-                <td class="py-4 text-slate-600">Kantor Digitaliz</td>
-                <td class="py-4 text-slate-500">09.10 WITA</td>
-                <td class="py-4"><span class="text-xs font-semibold text-indigo-700">Disetujui</span></td>
+
+                <td class="py-4">
+
+                  <span
+                    class="rounded-full bg-green-50 px-2.5 py-1 text-xs font-semibold text-green-700"
+                  >
+                    Di kantor
+                  </span>
+
+                </td>
+
+                <td class="py-4 text-slate-600">
+                  Kantor Digitaliz
+                </td>
+
+                <td class="py-4 text-slate-500">
+                  09.10 WITA
+                </td>
+
+                <td class="py-4">
+
+                  <span class="text-xs font-semibold text-indigo-700">
+                    Disetujui
+                  </span>
+
+                </td>
+
               </tr>
+
             </tbody>
+
           </table>
+
         </div>
 
-        <div id="employeeEmpty" class="hidden py-8 text-center">
-          <p class="font-semibold text-slate-800">Praktisi tidak ditemukan.</p>
-          <p class="mt-1 text-sm text-slate-500">Coba ubah filter atau kata pencarian.</p>
+
+        <div
+          id="employeeEmpty"
+          class="hidden py-8 text-center"
+        >
+
+          <p class="font-semibold text-slate-800">
+            Praktisi tidak ditemukan.
+          </p>
+
+          <p class="mt-1 text-sm text-slate-500">
+            Coba ubah filter atau kata pencarian.
+          </p>
+
         </div>
+
       </div>
 
     </section>
+
   </main>
 
-  <!-- Decision Modal -->
-  <div id="decisionModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/50 p-4 backdrop-blur-sm">
+
+  <!-- ==================================================
+       DECISION MODAL
+  =================================================== -->
+  <div
+    id="decisionModal"
+    class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/50 p-4 backdrop-blur-sm"
+  >
+
     <div class="w-full max-w-lg rounded-3xl bg-white p-6 shadow-2xl">
+
       <div class="flex items-start justify-between gap-4">
+
         <div>
-          <p id="modalEyebrow" class="text-sm font-semibold text-indigo-600">Tindakan Validasi</p>
-          <h2 id="modalTitle" class="mt-1 text-2xl font-bold text-slate-950">Konfirmasi tindakan</h2>
-          <p id="modalDescription" class="mt-2 text-sm leading-6 text-slate-500">Tinjau kembali tindakan yang akan dilakukan.</p>
+
+          <p
+            id="modalEyebrow"
+            class="text-sm font-semibold text-indigo-600"
+          >
+            Tindakan Validasi
+          </p>
+
+          <h2
+            id="modalTitle"
+            class="mt-1 text-2xl font-bold text-slate-950"
+          >
+            Konfirmasi tindakan
+          </h2>
+
+          <p
+            id="modalDescription"
+            class="mt-2 text-sm leading-6 text-slate-500"
+          >
+            Tinjau kembali tindakan yang akan dilakukan.
+          </p>
+
         </div>
-        <button id="closeModal" class="grid h-10 w-10 place-items-center rounded-xl border border-slate-200 text-slate-500 hover:bg-slate-50">✕</button>
+
+
+        <button
+          id="closeModal"
+          class="grid h-10 w-10 place-items-center rounded-xl border border-slate-200 text-slate-500 hover:bg-slate-50"
+        >
+          ✕
+        </button>
+
       </div>
+
 
       <div class="mt-6 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
-        <button id="cancelDecision" class="rounded-xl border border-slate-200 px-5 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-50">
+
+        <button
+          id="cancelDecision"
+          class="rounded-xl border border-slate-200 px-5 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+        >
           Batal
         </button>
-        <button id="confirmDecision" class="rounded-xl bg-indigo-600 px-5 py-3 text-sm font-semibold text-white hover:bg-indigo-700">
+
+        <button
+          id="confirmDecision"
+          class="rounded-xl bg-indigo-600 px-5 py-3 text-sm font-semibold text-white hover:bg-indigo-700"
+        >
           Simpan
         </button>
+
       </div>
+
     </div>
+
   </div>
 
-  <!-- Toast -->
-  <div id="toast" class="fixed bottom-5 right-5 z-[60] hidden max-w-sm rounded-2xl bg-slate-950 px-5 py-4 text-sm font-medium text-white shadow-xl">
+
+  <!-- TOAST -->
+  <div
+    id="toast"
+    class="fixed bottom-5 right-5 z-[60] hidden max-w-sm rounded-2xl bg-slate-950 px-5 py-4 text-sm font-medium text-white shadow-xl"
+  >
     Tindakan berhasil disimpan.
   </div>
 
+
+  <!-- ==================================================
+       JAVASCRIPT
+  =================================================== -->
   <script>
-    const validationItems = [...document.querySelectorAll('.validation-item')];
-    const validationSearch = document.getElementById('validationSearch');
-    const validationFilter = document.getElementById('validationFilter');
-    const validationEmpty = document.getElementById('validationEmpty');
-    const pendingCount = document.getElementById('pendingCount');
 
-    const employeeRows = [...document.querySelectorAll('.employee-row')];
-    const employeeSearch = document.getElementById('employeeSearch');
-    const employeeFilter = document.getElementById('employeeFilter');
-    const employeeEmpty = document.getElementById('employeeEmpty');
+    /* ==================================================
+       DATA ANTREAN VALIDASI
 
-    const modal = document.getElementById('decisionModal');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalDescription = document.getElementById('modalDescription');
-    const modalEyebrow = document.getElementById('modalEyebrow');
-    const confirmDecision = document.getElementById('confirmDecision');
-    const toast = document.getElementById('toast');
+       Nantinya data dari backend/database cukup masuk
+       ke array dengan format yang sama.
+    ================================================== */
+
+    const validationSubmissions = [
+
+      {
+        id: "req-1",
+        name: "Muhammad Rizki Ramadhan",
+        division: "Web Development",
+        location: "Hasnur Group Office, Banjarmasin",
+        activity: "Meeting dengan tim marketing",
+        updateTime: "14.05 WITA",
+        publicLocation: "Hasnur Group Office, Banjarmasin",
+        status: "pending"
+      },
+
+      {
+        id: "req-2",
+        name: "Dimas Akbar",
+        division: "Creative",
+        location: "Studio Kreatif, Banjarmasin",
+        activity: "Produksi konten",
+        updateTime: "13.40 WITA",
+        publicLocation: "Banjarmasin",
+        status: "pending"
+      }
+
+    ];
+
+
+    let validationItems = [];
+
+    const validationList =
+      document.getElementById("validationList");
+
+    const validationSearch =
+      document.getElementById("validationSearch");
+
+    const validationFilter =
+      document.getElementById("validationFilter");
+
+    const validationEmpty =
+      document.getElementById("validationEmpty");
+
+    const pendingCount =
+      document.getElementById("pendingCount");
+
+
+    const employeeRows = [
+      ...document.querySelectorAll(".employee-row")
+    ];
+
+    const employeeSearch =
+      document.getElementById("employeeSearch");
+
+    const employeeFilter =
+      document.getElementById("employeeFilter");
+
+    const employeeEmpty =
+      document.getElementById("employeeEmpty");
+
+
+    const modal =
+      document.getElementById("decisionModal");
+
+    const modalTitle =
+      document.getElementById("modalTitle");
+
+    const modalDescription =
+      document.getElementById("modalDescription");
+
+    const modalEyebrow =
+      document.getElementById("modalEyebrow");
+
+    const confirmDecision =
+      document.getElementById("confirmDecision");
+
+    const toast =
+      document.getElementById("toast");
+
 
     let currentItem = null;
     let currentAction = null;
 
+
+
+    /* ==================================================
+       SECURITY
+    ================================================== */
+
+    function escapeHTML(value) {
+
+      return String(value)
+
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+
+
+    /* ==================================================
+       INITIAL
+    ================================================== */
+
+    function getInitials(name) {
+
+      return name
+        .trim()
+        .split(/\s+/)
+        .slice(0, 2)
+        .map(word => word.charAt(0))
+        .join("")
+        .toUpperCase();
+    }
+
+
+
+    /* ==================================================
+       STATUS STYLE
+    ================================================== */
+
+    function getStatusBadge(status) {
+
+      if (status === "approved") {
+
+        return `
+          <span
+            class="request-status rounded-full bg-green-50 px-2.5 py-1 text-xs font-semibold text-green-700"
+          >
+            Disetujui
+          </span>
+        `;
+      }
+
+
+      if (status === "rejected") {
+
+        return `
+          <span
+            class="request-status rounded-full bg-rose-50 px-2.5 py-1 text-xs font-semibold text-rose-700"
+          >
+            Ditolak
+          </span>
+        `;
+      }
+
+
+      return `
+        <span
+          class="request-status rounded-full bg-amber-50 px-2.5 py-1 text-xs font-semibold text-amber-700"
+        >
+          Pending
+        </span>
+      `;
+    }
+
+
+
+    /* ==================================================
+       RENDER CARD OTOMATIS
+    ================================================== */
+
+    function renderValidationCards() {
+
+      validationList.innerHTML =
+        validationSubmissions
+          .map(employee => {
+
+            return `
+
+              <article
+                class="validation-item rounded-2xl border border-indigo-100 bg-indigo-50/40 p-5 sm:p-6"
+                data-name="${escapeHTML(employee.name)}"
+                data-status="${escapeHTML(employee.status)}"
+                data-id="${escapeHTML(employee.id)}"
+              >
+
+                <!-- HEADER -->
+                <div class="flex items-start gap-4">
+
+                  <!-- AVATAR -->
+                  <div
+                    class="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-white font-bold text-indigo-700 shadow-sm"
+                  >
+                    ${getInitials(employee.name)}
+                  </div>
+
+
+                  <!-- NAME -->
+                  <div class="min-w-0">
+
+                    <div class="flex flex-wrap items-center gap-2">
+
+                      <h3 class="font-semibold text-slate-950">
+                        ${escapeHTML(employee.name)}
+                      </h3>
+
+                      ${getStatusBadge(employee.status)}
+
+                    </div>
+
+
+                    <p class="mt-1 text-sm text-slate-500">
+                      ${escapeHTML(employee.division)}
+                    </p>
+
+                  </div>
+
+                </div>
+
+
+                <!-- DETAIL -->
+                <div
+                  class="mt-6 grid gap-6 border-t border-indigo-100 pt-5 md:grid-cols-[1.35fr_1.35fr_0.65fr_auto] md:items-end"
+                >
+
+                  <!-- LOCATION -->
+                  <div>
+
+                    <p
+                      class="text-xs font-medium uppercase tracking-wide text-slate-400"
+                    >
+                      Lokasi Internal
+                    </p>
+
+                    <p
+                      class="mt-2 text-sm font-semibold leading-6 text-slate-800"
+                    >
+                      ${escapeHTML(employee.location)}
+                    </p>
+
+                  </div>
+
+
+                  <!-- ACTIVITY -->
+                  <div>
+
+                    <p
+                      class="text-xs font-medium uppercase tracking-wide text-slate-400"
+                    >
+                      Kegiatan
+                    </p>
+
+                    <p
+                      class="mt-2 text-sm font-semibold leading-6 text-slate-800"
+                    >
+                      ${escapeHTML(employee.activity)}
+                    </p>
+
+                  </div>
+
+
+                  <!-- UPDATE -->
+                  <div>
+
+                    <p
+                      class="text-xs font-medium uppercase tracking-wide text-slate-400"
+                    >
+                      Update
+                    </p>
+
+                    <p
+                      class="mt-2 whitespace-nowrap text-sm font-semibold text-slate-800"
+                    >
+                      ${escapeHTML(employee.updateTime)}
+                    </p>
+
+                  </div>
+
+
+                  <!-- ACTION -->
+                  <div class="flex gap-2">
+
+                    <button
+                      class="approve-btn rounded-xl bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-indigo-700"
+                    >
+                      Setujui
+                    </button>
+
+                    <button
+                      class="reject-btn rounded-xl border border-rose-200 bg-rose-50 px-5 py-2.5 text-sm font-semibold text-rose-700 transition hover:bg-rose-100"
+                    >
+                      Tolak
+                    </button>
+
+                  </div>
+
+                </div>
+
+
+                <!-- PUBLIC LOCATION -->
+                <div
+                  class="mt-6 rounded-2xl border border-slate-200 bg-white p-4"
+                >
+
+                  <label
+                    class="text-xs font-medium uppercase tracking-wide text-slate-400"
+                  >
+                    Lokasi yang ditampilkan ke publik
+                  </label>
+
+
+                  <input
+                    class="public-location mt-3 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-indigo-400 focus:bg-white focus:ring-4 focus:ring-indigo-100"
+                    value="${escapeHTML(employee.publicLocation)}"
+                  />
+
+                </div>
+
+              </article>
+
+            `;
+
+          })
+          .join("");
+
+
+      validationItems = [
+        ...document.querySelectorAll(".validation-item")
+      ];
+
+
+      updatePendingCount();
+
+      filterValidation();
+    }
+
+
+
+    /* ==================================================
+       WITA CLOCK
+    ================================================== */
+
     function updateClock() {
+
       const now = new Date();
-      const formatted = new Intl.DateTimeFormat('id-ID', {
-        timeZone: 'Asia/Makassar',
-        weekday: 'long',
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false
-      }).format(now);
-      document.getElementById('liveClock').textContent = formatted + ' WITA';
+
+      const formatted =
+        new Intl.DateTimeFormat(
+          "id-ID",
+          {
+            timeZone: "Asia/Makassar",
+            weekday: "long",
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false
+          }
+        ).format(now);
+
+
+      document.getElementById(
+        "liveClock"
+      ).textContent =
+        formatted + " WITA";
     }
 
-    function getWitaTime() {
-      const now = new Date();
-      return new Intl.DateTimeFormat('id-ID', {
-        timeZone: 'Asia/Makassar',
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false
-      }).format(now) + ' WITA';
-    }
 
-    updateClock();
-    setInterval(updateClock, 30000);
+
+    /* ==================================================
+       PENDING COUNT
+    ================================================== */
 
     function updatePendingCount() {
-      const count = validationItems.filter(item => item.dataset.status === 'pending').length;
-      pendingCount.textContent = count;
+
+      const count =
+        validationSubmissions.filter(
+          employee =>
+            employee.status === "pending"
+        ).length;
+
+
+      pendingCount.textContent =
+        count;
     }
+
+
+
+    /* ==================================================
+       VALIDATION FILTER
+    ================================================== */
 
     function filterValidation() {
-      const keyword = validationSearch.value.toLowerCase().trim();
-      const status = validationFilter.value;
+
+      const keyword =
+        validationSearch
+          .value
+          .toLowerCase()
+          .trim();
+
+
+      const status =
+        validationFilter.value;
+
+
       let visible = 0;
+
 
       validationItems.forEach(item => {
-        const matchesName = item.dataset.name.toLowerCase().includes(keyword);
-        const matchesStatus = status === 'all' || item.dataset.status === status;
-        const show = matchesName && matchesStatus;
-        item.classList.toggle('hidden', !show);
-        if (show) visible++;
+
+        const matchesName =
+          item.dataset.name
+            .toLowerCase()
+            .includes(keyword);
+
+
+        const matchesStatus =
+          status === "all" ||
+          item.dataset.status === status;
+
+
+        const show =
+          matchesName &&
+          matchesStatus;
+
+
+        item.classList.toggle(
+          "hidden",
+          !show
+        );
+
+
+        if (show) {
+          visible++;
+        }
+
       });
 
-      validationEmpty.classList.toggle('hidden', visible !== 0);
+
+      validationEmpty.classList.toggle(
+        "hidden",
+        visible !== 0
+      );
     }
 
-    validationSearch.addEventListener('input', filterValidation);
-    validationFilter.addEventListener('change', filterValidation);
+
+
+    validationSearch.addEventListener(
+      "input",
+      filterValidation
+    );
+
+
+    validationFilter.addEventListener(
+      "change",
+      filterValidation
+    );
+
+
+
+    /* ==================================================
+       EMPLOYEE MONITOR FILTER
+    ================================================== */
 
     function filterEmployees() {
-      const keyword = employeeSearch.value.toLowerCase().trim();
-      const status = employeeFilter.value;
+
+      const keyword =
+        employeeSearch
+          .value
+          .toLowerCase()
+          .trim();
+
+
+      const status =
+        employeeFilter.value;
+
+
       let visible = 0;
 
+
       employeeRows.forEach(row => {
-        const matchesText = row.dataset.name.toLowerCase().includes(keyword);
-        const matchesStatus = status === 'all' || row.dataset.status === status;
-        const show = matchesText && matchesStatus;
-        row.classList.toggle('hidden', !show);
-        if (show) visible++;
+
+        const matchesText =
+          row.dataset.name
+            .toLowerCase()
+            .includes(keyword);
+
+
+        const matchesStatus =
+          status === "all" ||
+          row.dataset.status === status;
+
+
+        const show =
+          matchesText &&
+          matchesStatus;
+
+
+        row.classList.toggle(
+          "hidden",
+          !show
+        );
+
+
+        if (show) {
+          visible++;
+        }
+
       });
 
-      employeeEmpty.classList.toggle('hidden', visible !== 0);
+
+      employeeEmpty.classList.toggle(
+        "hidden",
+        visible !== 0
+      );
     }
 
-    employeeSearch.addEventListener('input', filterEmployees);
-    employeeFilter.addEventListener('change', filterEmployees);
+
+
+    employeeSearch.addEventListener(
+      "input",
+      filterEmployees
+    );
+
+
+    employeeFilter.addEventListener(
+      "change",
+      filterEmployees
+    );
+
+
+
+    /* ==================================================
+       OPEN MODAL
+    ================================================== */
 
     function openDecision(item, action) {
+
       currentItem = item;
       currentAction = action;
 
-      if (action === 'approve') {
-        modalEyebrow.textContent = 'Setujui Laporan';
-        modalTitle.textContent = 'Publikasikan lokasi ini?';
-        modalDescription.textContent = 'Lokasi publik akan diperbarui berdasarkan informasi yang telah ditinjau.';
-        confirmDecision.textContent = 'Setujui & Publikasikan';
-        confirmDecision.className = 'rounded-xl bg-indigo-600 px-5 py-3 text-sm font-semibold text-white hover:bg-indigo-700';
-      } else if (action === 'revision') {
-        modalEyebrow.textContent = 'Minta Revisi';
-        modalTitle.textContent = 'Kirim permintaan perbaikan';
-        modalDescription.textContent = 'Karyawan akan diminta memperbarui laporannya.';
-        confirmDecision.textContent = 'Kirim Revisi';
-        confirmDecision.className = 'rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white hover:bg-slate-800';
-      } else {
-        modalEyebrow.textContent = 'Tolak Laporan';
-        modalTitle.textContent = 'Tolak update lokasi ini?';
-        modalDescription.textContent = 'Laporan tidak akan dipublikasikan.';
-        confirmDecision.textContent = 'Tolak Laporan';
-        confirmDecision.className = 'rounded-xl bg-rose-600 px-5 py-3 text-sm font-semibold text-white hover:bg-rose-700';
+
+      if (action === "approve") {
+
+        modalEyebrow.textContent =
+          "Setujui Laporan";
+
+        modalTitle.textContent =
+          "Publikasikan lokasi ini?";
+
+        modalDescription.textContent =
+          "Lokasi publik akan diperbarui berdasarkan informasi yang telah ditinjau.";
+
+        confirmDecision.textContent =
+          "Setujui & Publikasikan";
+
+        confirmDecision.className =
+          "rounded-xl bg-indigo-600 px-5 py-3 text-sm font-semibold text-white hover:bg-indigo-700";
+
       }
 
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
+      else {
+
+        modalEyebrow.textContent =
+          "Tolak Laporan";
+
+        modalTitle.textContent =
+          "Tolak update lokasi ini?";
+
+        modalDescription.textContent =
+          "Laporan tidak akan dipublikasikan dan karyawan dapat memperbarui lokasinya kembali.";
+
+        confirmDecision.textContent =
+          "Tolak Laporan";
+
+        confirmDecision.className =
+          "rounded-xl bg-rose-600 px-5 py-3 text-sm font-semibold text-white hover:bg-rose-700";
+      }
+
+
+      modal.classList.remove(
+        "hidden"
+      );
+
+      modal.classList.add(
+        "flex"
+      );
     }
 
+
+
+    /* ==================================================
+       CARD BUTTON EVENT
+
+       Event delegation membuat card baru yang muncul
+       nanti tetap otomatis memiliki fungsi tombol.
+    ================================================== */
+
+    validationList.addEventListener(
+      "click",
+      event => {
+
+        const approveButton =
+          event.target.closest(
+            ".approve-btn"
+          );
+
+
+        const rejectButton =
+          event.target.closest(
+            ".reject-btn"
+          );
+
+
+        if (approveButton) {
+
+          openDecision(
+            approveButton.closest(
+              ".validation-item"
+            ),
+            "approve"
+          );
+        }
+
+
+        if (rejectButton) {
+
+          openDecision(
+            rejectButton.closest(
+              ".validation-item"
+            ),
+            "reject"
+          );
+        }
+
+      }
+    );
+
+
+
+    /* ==================================================
+       CLOSE MODAL
+    ================================================== */
+
     function closeDecision() {
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
+
+      modal.classList.add(
+        "hidden"
+      );
+
+      modal.classList.remove(
+        "flex"
+      );
+
       currentItem = null;
       currentAction = null;
     }
 
-    document.querySelectorAll('.approve-btn').forEach(btn => {
-      btn.addEventListener('click', () => openDecision(btn.closest('.validation-item'), 'approve'));
-    });
-    document.querySelectorAll('.revision-btn').forEach(btn => {
-      btn.addEventListener('click', () => openDecision(btn.closest('.validation-item'), 'revision'));
-    });
-    document.querySelectorAll('.reject-btn').forEach(btn => {
-      btn.addEventListener('click', () => openDecision(btn.closest('.validation-item'), 'reject'));
-    });
 
-    document.getElementById('closeModal').addEventListener('click', closeDecision);
-    document.getElementById('cancelDecision').addEventListener('click', closeDecision);
 
-    modal.addEventListener('click', (event) => {
-      if (event.target === modal) closeDecision();
-    });
+    document
+      .getElementById(
+        "closeModal"
+      )
+      .addEventListener(
+        "click",
+        closeDecision
+      );
+
+
+    document
+      .getElementById(
+        "cancelDecision"
+      )
+      .addEventListener(
+        "click",
+        closeDecision
+      );
+
+
+    modal.addEventListener(
+      "click",
+      event => {
+
+        if (event.target === modal) {
+          closeDecision();
+        }
+
+      }
+    );
+
+
+
+    /* ==================================================
+       TOAST
+    ================================================== */
 
     function showToast(message) {
-      toast.textContent = message;
-      toast.classList.remove('hidden');
-      setTimeout(() => toast.classList.add('hidden'), 2800);
+
+      toast.textContent =
+        message;
+
+      toast.classList.remove(
+        "hidden"
+      );
+
+
+      setTimeout(
+        () =>
+          toast.classList.add(
+            "hidden"
+          ),
+        2800
+      );
     }
 
-    confirmDecision.addEventListener('click', () => {
-      if (!currentItem || !currentAction) return;
 
-      const badge = currentItem.querySelector('.request-status');
-      const employeeName = currentItem.dataset.name;
-      const publicLocation = currentItem.querySelector('.public-location').value.trim() || 'Lokasi disembunyikan';
 
-      if (currentAction === 'approve') {
-        currentItem.dataset.status = 'approved';
-        badge.textContent = 'Disetujui';
-        badge.className = 'request-status rounded-full bg-indigo-50 px-2.5 py-1 text-xs font-semibold text-indigo-700';
-        currentItem.classList.remove('border-indigo-100', 'bg-indigo-50/40');
-        currentItem.classList.add('border-slate-200', 'bg-white');
+    /* ==================================================
+       CONFIRM APPROVE / REJECT
+    ================================================== */
 
-        showToast('Laporan berhasil disetujui dan dipublikasikan.');
+    confirmDecision.addEventListener(
+      "click",
+      () => {
 
-      } else if (currentAction === 'revision') {
-        currentItem.dataset.status = 'revision';
-        badge.textContent = 'Perlu Revisi';
-        badge.className = 'request-status rounded-full bg-amber-50 px-2.5 py-1 text-xs font-semibold text-amber-700';
-        currentItem.classList.remove('border-indigo-100', 'bg-indigo-50/40');
-        currentItem.classList.add('border-amber-100', 'bg-amber-50/30');
+        if (
+          !currentItem ||
+          !currentAction
+        ) {
+          return;
+        }
 
-        showToast('Permintaan revisi berhasil dikirim.');
 
-      } else {
-        currentItem.dataset.status = 'rejected';
-        badge.textContent = 'Ditolak';
-        badge.className = 'request-status rounded-full bg-rose-50 px-2.5 py-1 text-xs font-semibold text-rose-700';
-        currentItem.classList.remove('border-indigo-100', 'bg-indigo-50/40');
-        currentItem.classList.add('border-rose-100', 'bg-rose-50/30');
+        const requestId =
+          currentItem.dataset.id;
 
-        showToast('Laporan berhasil ditolak.');
+
+        const submission =
+          validationSubmissions.find(
+            employee =>
+              employee.id === requestId
+          );
+
+
+        if (!submission) {
+          return;
+        }
+
+
+        /*
+          Simpan perubahan input lokasi publik
+          sebelum render ulang.
+        */
+
+        const publicLocationInput =
+          currentItem.querySelector(
+            ".public-location"
+          );
+
+
+        submission.publicLocation =
+          publicLocationInput.value.trim();
+
+
+        if (
+          currentAction === "approve"
+        ) {
+
+          submission.status =
+            "approved";
+
+
+          showToast(
+            "Laporan berhasil disetujui dan siap dipublikasikan."
+          );
+
+        }
+
+        else {
+
+          submission.status =
+            "rejected";
+
+
+          showToast(
+            "Laporan berhasil ditolak."
+          );
+
+        }
+
+
+        closeDecision();
+
+        renderValidationCards();
+
       }
+    );
 
-      updatePendingCount();
-      filterValidation();
-      closeDecision();
-    });
 
-    updatePendingCount();
+
+    /* ==================================================
+       CONTOH TAMBAH PENGAJUAN BARU
+
+       Nantinya bagian ini yang bisa menerima
+       data dari backend/database.
+
+       Contoh:
+
+       addValidationSubmission({
+         id: "req-3",
+         name: "Ahda Sabila",
+         division: "UI/UX Design",
+         location: "Universitas Lambung Mangkurat",
+         activity: "Meeting project",
+         updateTime: "10.45 WITA",
+         publicLocation: "Banjarmasin"
+       });
+    ================================================== */
+
+    function addValidationSubmission(data) {
+
+      validationSubmissions.unshift({
+
+        id:
+          data.id ||
+          "req-" + Date.now(),
+
+        name:
+          data.name,
+
+        division:
+          data.division,
+
+        location:
+          data.location,
+
+        activity:
+          data.activity,
+
+        updateTime:
+          data.updateTime,
+
+        publicLocation:
+          data.publicLocation ||
+          data.location,
+
+        status:
+          "pending"
+
+      });
+
+
+      renderValidationCards();
+    }
+
+
+
+    /* ==================================================
+       INITIALIZE
+    ================================================== */
+
+    renderValidationCards();
+
+    updateClock();
+
+    setInterval(
+      updateClock,
+      30000
+    );
+
   </script>
 
 </body>
+
 </html>
