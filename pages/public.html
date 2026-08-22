@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="id">
 
-<head>
+<>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lokasi Praktisi | Digitaliz</title>
@@ -20,7 +20,35 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  /* DI KANTOR = HIJAU */
+  .practitioner-card[data-status="office"] > div:first-child > span {
+    background-color: #dcfce7 !important;
+    color: #15803d !important;
+  }
+
+  .practitioner-card[data-status="office"] > div:first-child > span > span {
+    background-color: #22c55e !important;
+  }
+
+  /* DI LUAR = MERAH */
+  .practitioner-card[data-status="outside"] > div:first-child > span {
+    background-color: #fee2e2 !important;
+    color: #dc2626 !important;
+  }
+
+  .practitioner-card[data-status="outside"] > div:first-child > span > span {
+    background-color: #ef4444 !important;
+  }
+
+  /* IZIN / CUTI = DEFAULT */
+  .practitioner-card[data-status="leave"] > div:first-child > span {
+    background-color: #f1f5f9 !important;
+    color: #475569 !important;
+  }
+</style>
 </head>
 
 <body class="bg-slate-50 text-slate-900 antialiased">
@@ -197,7 +225,8 @@
                 <p class="mt-1 text-sm text-slate-500">UI/UX Design</p>
               </div>
               <span
-                class="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700">
+                class="
+                inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700">
                 <span class="h-1.5 w-1.5 rounded-full bg-slate-500"></span>
                 Di kantor
               </span>
